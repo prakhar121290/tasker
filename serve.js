@@ -12,7 +12,7 @@ config.plugins.push(new webpack.HotModuleReplacementPlugin());
 const compiler = webpack(config);
 const server = new WebpackDevServer(compiler, {
   hot: true,
-  contentBase: path.join(__dirname),
+  contentBase: path.join(__dirname,'client'),
   publicPath: config.output.publicPath
 });
 
