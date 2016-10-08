@@ -1,0 +1,19 @@
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
+
+const path = require('path');
+
+const port = process.env.PORT || 3000
+
+const config = require('./webpack.config');
+config.entry.app.unshift('webpack-dev-server/client?http://localhost:'+port,'webpack/hot/dev-server');
+config.plugins.push(new webpack.HotModuleReplacementPlugin());
+
+const compiler = webpack(config);
+const server = new WebpackDevServer(compiler, {
+  hot: true,
+  contentBase: path.join(__dirname),
+  publicPath: config.output.publicPath
+});
+
+server.listen(port);
