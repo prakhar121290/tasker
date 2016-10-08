@@ -32,6 +32,12 @@ gulp.task('build:fonts',['clean'],function() {
     .pipe(gulp.dest('server/public/fonts'))
 });
 
+gulp.task('build:icons',['clean'],function() {
+  return gulp.src('client/**/*.png')
+    .pipe(flatten())
+    .pipe(gulp.dest('server/public/icons'))
+});
+
 gulp.task('clean',function(cb) {
   return gulp.src('server/public',{read:false})
   .pipe(clean({force:true}));

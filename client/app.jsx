@@ -6,12 +6,14 @@ injectTapEventPlugin();
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import AppBar from 'material-ui/AppBar';
+import {Router, Route, hashHistory} from 'react-router';
+
+import HomeView from './views/HomeView';
 
 ReactDOM.render(
   <MuiThemeProvider>
-    <div>
-      <AppBar title="React Hot Boilerplate" />
-      <h1>Hello, Material!</h1>
-    </div>
-  </MuiThemeProvider>, document.getElementById('content'));
+    <Router history={hashHistory}>
+      <Route path="/" component={HomeView} />
+    </Router>
+  </MuiThemeProvider>, document.getElementById('content')
+);

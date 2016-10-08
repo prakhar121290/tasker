@@ -29,11 +29,16 @@
     "material-ui": "^0.16.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-router": "^2.8.1",
     "react-tap-event-plugin": "^1.0.0",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "express": "^4.14.0"
+    "async": "^2.0.1",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
+    "mongoose": "^4.6.3",
+    "request": "^2.75.0"
   }
 }
