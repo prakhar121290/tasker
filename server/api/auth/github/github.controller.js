@@ -46,12 +46,12 @@ function complete(req, res) {
         done(null, userProfile);
       });
     }, function createOrUpdateUserProfile(user, done) {
-      Profile.findOneAndUpdate({'github.login':user.login},{github:user}, {new: true, upsert: true}, function(err, updatedProfile) {
+      Profile.updateGithubProfile(user, function(err, updatedProfile) {
         if(err) { return done(err); }
         done(null, updatedProfile);
       });
     }, function generateJWTToken(user, done) {
-      auth.generateToken(user.github.login, function(err, token) {
+      auth.generateToken(user._id, {name: user.github.name, location: user.github.location}, function(err, token) {
         if(err) { return done(err); }
         done(null,token);
       });

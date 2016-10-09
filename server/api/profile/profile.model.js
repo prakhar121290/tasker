@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const GithubSchema = new mongoose.Schema({
   login: {type: String, required: true, unique: true},
   id: {type: String, required: true, unique: true},
-  avatal_url: {type: String},
+  avatar_url: {type: String},
   name: {type: String},
   company: {type: String},
   location: {type: String},
@@ -16,10 +16,14 @@ const ProfileSchema = new mongoose.Schema({
   location: {type: String}
 });
 
-ProfileSchema.pre('save', function(next) {
-  this.name = this.github.name;
-  this.location = this.github.location;
-  next();
-});
+ProfileSchema.statics.updateGithubProfile = function(github, callback) {
+  const updatedGithubProfile = {
+    name: github.name,
+    location: github.location,
+    github: github
+  }
+
+  this.findOneAndUpdate({'github.login': github.login},updatedGithubProfile, {upsert: true, new: true},callback);
+}
 
 module.exports = mongoose.model('Profile',ProfileSchema);
