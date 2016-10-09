@@ -42,15 +42,14 @@ export default class NavBar extends React.Component {
 
   render() {
     const name = JSON.parse(atob(cookie.load('token').split('.')[1])).info.name;
-    console.log('name',name);
     const iconElementRight = <IconButton><ActionExitToApp /></IconButton>;
     return (
       <div>
-        <AppBar title="Dashboard"
+        <AppBar title="Tasker"
           iconElementRight={iconElementRight}
           onRightIconButtonTouchTap={this.handleLogout.bind(this)}
           onLeftIconButtonTouchTap={this.toggleDrawer.bind(this)}
-          zDepth={2}
+          zDepth={1}
         />
         <Drawer
           open={this.state.openDrawer}
