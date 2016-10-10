@@ -3,7 +3,7 @@ import NavBar from '../../components/NavBar';
 import Tasker from '../../components/Tasker';
 import NotesManager from '../../components/NotesManager';
 
-require('../../bower_components/flexboxgrid/dist/flexboxgrid.min.css');
+import flexboxgridcss from 'flexboxgrid';
 
 const styles = {
   tasker: {

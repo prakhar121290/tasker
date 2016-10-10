@@ -12,10 +12,10 @@ gulp.task('build:react',['clean'],function() {
   return gulp.src('client/*')
     .pipe(webpack(config))
     .pipe(uglify())
-    .pipe(gulp.dest('server/public/assets'));
+    .pipe(gulp.dest('client/assets'));
 });
 
-gulp.task('build:html',['clean'],function() {
+gulp.task('build:html',['clean','build:react'],function() {
   return gulp.src('client/*.html')
     .pipe(usemin({
       assetsDir: 'client',
@@ -43,6 +43,6 @@ gulp.task('clean',function(cb) {
   .pipe(clean({force:true}));
 });
 
-gulp.task('build',['build:react','build:fonts','build:html']);
+gulp.task('build',['build:react','build:fonts','build:icons','build:html']);
 
 gulp.task('default',['build']);

@@ -3,12 +3,13 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
-require('flexboxgrid');
+import flexboxgridcss from 'flexboxgrid';
 
 const styles = {
   paper: {
     width: '100%',
-    marginTop: '50px'
+    marginTop: '100px',
+    paddingTop: '30px'
   },
   titleTextField: {
     fontWeight: 'bold'
@@ -19,7 +20,8 @@ export default class Tasker extends React.Component {
   constructor() {
     super();
     this.state = {
-      note: '',
+      title: '',
+      text: '',
       titleFocus: false,
       noteFocus: false,
       expandedView: true
@@ -40,7 +42,6 @@ export default class Tasker extends React.Component {
         fullWidth={true}
         onFocus={this.handleFocus.bind(this,'title')}
         onBlur={this.handleBlur.bind(this,'title')}
-        multiLine={true}
         value={this.state.title}
         onChange={this.handleChange.bind(this,'title')}
       />
@@ -105,7 +106,8 @@ export default class Tasker extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const note = {title: this.state.title, text: this.state.text};
-    console.log('Submitting:',note);
+    if(note.title.trim() === '' && note.title.trim() === '') { return; }
+    this.setState({title:'',text:''});
     this.props.createNewNote(note);
   }
 }

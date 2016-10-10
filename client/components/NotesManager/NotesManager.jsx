@@ -1,19 +1,17 @@
 import React from 'react';
 
 import Tasker from '../../components/Tasker'
-
 import Paper from 'material-ui/Paper';
 
-import ReactMarkdown from 'react-markdown';
+import Note from '../Note';
+
+import flexboxgridcss from 'flexboxgrid';
+
+import request from 'superagent';
 
 const styles = {
   noteArea: {
     marginTop: '30px'
-  },
-  notePaper: {
-    margin: '10px',
-    padding: '10px',
-    textAlign: 'left'
   }
 }
 
@@ -21,26 +19,24 @@ export default class NotesManager extends React.Component {
   constructor() {
     super();
     this.state = {
-      notes: [{
-        title: 'Mahanandi Trip',
-        text:'Mahanandi trip planned at 6.00 AM Tomorrow'
-      }, {
-        title: 'App Fabric Deployment',
-        text: 'Develop App Fabric for Deployment'
-      }]
+      notes: []
     }
   }
 
+  componentDidMount() {
+    request
+      .get('/note')
+      .end((err, res) => {
+        if(err) { return console.err('ERR',err); }
+        this.setState({notes: res.body});
+      });
+  }
+
   render() {
-    const notes = this.state.notes.map((note,index) => {
+    const notes = this.state.notes.map((note) => {
       return (
-        <div className="col-md-4 col-lg-3" key={index}>
-          <Paper style={styles.notePaper} zDepth={2}>
-            <h3>{note.title}</h3>
-            <div>
-              <ReactMarkdown source={note.text} />
-            </div>
-          </Paper>
+        <div className="col-md-4 col-lg-3" key={note._id}>
+          <Note note={note} delete={this.handleDeleteNote.bind(this,note._id) }/>
         </div>
       );
     });
@@ -62,8 +58,28 @@ export default class NotesManager extends React.Component {
   }
 
   handleCreateNewNote(note) {
-    const notes = this.state.notes;
-    notes.push(note);
+    request
+      .post('/note')
+      .send(note)
+      .set('Content-Type','application/json')
+      .end((err, res) => {
+        if(err) { return console.log('ERR',err); }
+        const notes = this.state.notes;
+        notes.push(res.body);
+        this.setState({notes});
+    });
+  }
+
+  handleDeleteNote(noteId) {
+    const notes = this.state.notes.filter((note) => {
+      return note._id !== noteId
+    });
+
+    request
+      .delete('/note/'+noteId)
+      .end((err, res) => {
+        if(err) { return console.log('ERR',err); }
+      });
 
     this.setState({notes});
   }

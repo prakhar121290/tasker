@@ -15,6 +15,9 @@ const styles = {
   },
   avatar: {
     margin: '10px'
+  },
+  appBar: {
+    position: 'fixed'
   }
 }
 
@@ -46,6 +49,7 @@ export default class NavBar extends React.Component {
     return (
       <div>
         <AppBar title="Tasker"
+          style={styles.appBar}
           iconElementRight={iconElementRight}
           onRightIconButtonTouchTap={this.handleLogout.bind(this)}
           onLeftIconButtonTouchTap={this.toggleDrawer.bind(this)}
