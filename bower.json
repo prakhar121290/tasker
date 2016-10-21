@@ -1,17 +1,17 @@
 {
-  "name": "react-boilerplate",
+  "name": "tasker",
   "description": "",
   "main": "index.js",
   "authors": [
     "Sagar Patke <sagarpatke@gmail.com>"
   ],
   "license": "ISC",
-  "homepage": "",
-  "private": true,
+  "homepage": "https://github.com/sagarpatke/tasker",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "client",
     "test",
     "tests"
   ],
