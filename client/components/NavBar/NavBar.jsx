@@ -21,12 +21,16 @@ const styles = {
   }
 }
 
-function getInitials(name) {
+/*function getInitials(name) {
   var initials = '';
   name.split(' ').forEach(function(w) {
     initials += w[0];
   });
   return initials
+}*/
+
+function getInitials() {
+  return 'A';
 }
 
 export default class NavBar extends React.Component {
